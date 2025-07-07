@@ -1,10 +1,11 @@
 import streamlit as st
 import pickle
 import pandas as pd
+import joblib 
 
-# Load preprocessed data and similarity matrix
-movies = pickle.load(open('movies.pkl', 'rb'))   # should contain the dataframe with 'title'
-similarity = pickle.load(open('similarity.pkl', 'rb'))
+# Load preprocessed data
+movies = pickle.load(open('movies.pkl', 'rb')) 
+similarity = joblib.load(open('similarity.pkl', 'rb'))  
 
 def recommend(movie):
     movie_index = movies[movies['title'] == movie].index[0]
@@ -13,7 +14,7 @@ def recommend(movie):
     return [movies.iloc[i[0]].title for i in movie_list]
 
 # Streamlit app
-st.title('Movie Recommender System')
+st.title('🎬 Movie Recommender System')
 
 selected_movie = st.selectbox('Select a movie:', movies['title'].values)
 
